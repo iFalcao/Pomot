@@ -1,23 +1,23 @@
 package com.pomot.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
-	
-	// Propriedades da Entidade Usuario
-	
+		
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column (nullable = false, length = 25)
+	@Column (nullable = false, length = 40)
 	private String login;
 	
 	@Column (nullable = false, length = 80)
@@ -26,11 +26,9 @@ public class Usuario {
 	@Column (nullable = false, length = 25) 
 	private String senha;
 	
-	@OneToMany
-	@JoinColumn (name = "pomo_tempo_id")
-	private PomoTempo pomoTempo;
+	@OneToMany (mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<PomoTempo> pomoTempo;
 	
-	// Getters && Setters && HashCode && Equals
 	public Long getId() {
 		return id;
 	}
@@ -94,12 +92,12 @@ public class Usuario {
 		return true;
 	}
 
-	public PomoTempo getPomoTempo() {
+	public List<PomoTempo> getPomoTempo() {
 		return pomoTempo;
 	}
 
-	public void setPomoTempo(PomoTempo pomoTempo) {
+	public void setPomoTempo(List<PomoTempo> pomoTempo) {
 		this.pomoTempo = pomoTempo;
 	}
-	
+
 }
